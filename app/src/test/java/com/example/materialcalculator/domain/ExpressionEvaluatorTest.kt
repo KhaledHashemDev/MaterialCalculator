@@ -36,6 +36,33 @@ ExpressionEvaluatorTest {
     }
 
     @Test //backticks can give real names to our tests, describes our tests.
+    fun `Simple expression with subtract is properly evaluated`(){
+
+        //Structure of all unit tests - 1) GIVEN (input)
+        evaluator = ExpressionEvaluator(listOf(
+            ExpressionPart.Op(Operation.SUBTRACT),
+            ExpressionPart.Number(4.0),
+            ExpressionPart.Op(Operation.ADD),
+            ExpressionPart.Number(5.0),
+            ExpressionPart.Op(Operation.SUBTRACT),
+            ExpressionPart.Number(3.0),
+            ExpressionPart.Op(Operation.MULTIPLY),
+            ExpressionPart.Number(5.0),
+            ExpressionPart.Op(Operation.DIVIDE),
+            ExpressionPart.Number(3.0),
+        ))
+
+        //2. DO SOMETHING WITH WHAT'S GIVEN (returns an expression part list)
+        val actual = evaluator.evaluate()
+
+        //3. ASSERT THAT THE EXPECTED == ACTUAL
+        val expected = -4.00
+
+        //assertion that comes from truth library
+        assertThat(expected).isEqualTo(actual)
+    }
+
+    @Test //backticks can give real names to our tests, describes our tests.
     fun `Expression with decimals is properly evaluated`(){
 
         //Structure of all unit tests - 1) GIVEN (input)
@@ -82,6 +109,7 @@ ExpressionEvaluatorTest {
 
         assertThat(evaluator.evaluate()).isEqualTo(6.5)
     }
+
 
     //you can also create more tests, more complex expression with parenthesis,
     //with nested parenthesis
